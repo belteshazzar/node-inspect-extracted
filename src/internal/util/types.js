@@ -145,9 +145,13 @@ module.exports = {
   },
   isModuleNamespaceObject(val) {
     // TODO: this is weak and easily faked
-    return val &&
-      (typeof val === 'object') &&
-      (val[SymbolToStringTag] === 'Module');
+    try {
+      return val &&
+        (typeof val === 'object') &&
+        (val[SymbolToStringTag] === 'Module');
+    } catch {
+      return false;
+    }
   },
   isNativeError(val) {
     return (val instanceof Error) && constructorNamed(

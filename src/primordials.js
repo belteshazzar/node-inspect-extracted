@@ -314,8 +314,8 @@ const {
  * `primordials` object, it's important to use const references to the
  * primordials that they use.
  * @template {Iterable} T
- * @template {*} TReturn
- * @template {*} TNext
+ * @template {undefined} TReturn
+ * @template {undefined} TNext
  * @param {(self: T) => IterableIterator<T>} factory
  * @param {(...args: [] | [TNext]) => IteratorResult<T, TReturn>} next
  * @returns {Iterator<T, TReturn, TNext>}
@@ -399,62 +399,43 @@ primordials.makeSafe = makeSafe;
 
 // Subclass the constructors because we need to use their prototype
 // methods later.
-// Defining the `constructor` is necessary here to avoid the default
-// constructor which uses the user-mutable `%ArrayIteratorPrototype%.next`.
 primordials.SafeMap = makeSafe(
   Map,
-  class SafeMap extends Map {
-    constructor(i) { super(i); } // eslint-disable-line no-useless-constructor
-  },
+  class SafeMap extends Map {},
 );
 primordials.SafeWeakMap = makeSafe(
   WeakMap,
-  class SafeWeakMap extends WeakMap {
-    constructor(i) { super(i); } // eslint-disable-line no-useless-constructor
-  },
+  class SafeWeakMap extends WeakMap {},
 );
 
 primordials.SafeSet = makeSafe(
   Set,
-  class SafeSet extends Set {
-    constructor(i) { super(i); } // eslint-disable-line no-useless-constructor
-  },
+  class SafeSet extends Set {},
 );
 primordials.SafeWeakSet = makeSafe(
   WeakSet,
-  class SafeWeakSet extends WeakSet {
-    constructor(i) { super(i); } // eslint-disable-line no-useless-constructor
-  },
+  class SafeWeakSet extends WeakSet {},
 );
 
 primordials.SafeFinalizationRegistry = makeSafe(
   FinalizationRegistry,
-  class SafeFinalizationRegistry extends FinalizationRegistry {
-    // eslint-disable-next-line no-useless-constructor
-    constructor(cleanupCallback) { super(cleanupCallback); }
-  },
+  class SafeFinalizationRegistry extends FinalizationRegistry {},
 );
 primordials.SafeWeakRef = makeSafe(
   WeakRef,
-  class SafeWeakRef extends WeakRef {
-    // eslint-disable-next-line no-useless-constructor
-    constructor(target) { super(target); }
-  },
+  class SafeWeakRef extends WeakRef {},
 );
 
 // const SafePromise = makeSafe(
 //   Promise,
-//   class SafePromise extends Promise {
-//     // eslint-disable-next-line no-useless-constructor
-//     constructor(executor) { super(executor); }
-//   },
+//   class SafePromise extends Promise {},
 // );
 
 /**
  * Attaches a callback that is invoked when the Promise is settled (fulfilled or
  * rejected). The resolved value cannot be modified from the callback.
  * Prefer using async functions when possible.
- * @param {Promise<any>} thisPromise
+ * @param {Promise<unknown>} thisPromise
  * @param {(() => void) | undefined | null} onFinally The callback to execute
  *   when the Promise is settled (fulfilled or rejected).
  * @returns {Promise} A Promise for the completion of the callback.
@@ -551,7 +532,7 @@ primordials.AsyncIteratorPrototype =
  * @template T,U
  * @param {Array<T|PromiseLike<T>>} promises
  * @param {(v: T|PromiseLike<T>, k: number) => U|PromiseLike<U>} [mapFn]
- * @returns {Promise<PromiseSettledResult<any>[]>}
+ * @returns {Promise<PromiseSettledResult<unknown>[]>}
  */
 // primordials.SafePromiseAllSettled = (promises, mapFn) =>
 //   // Wrapping on a new Promise is necessary to not expose the SafePromise
