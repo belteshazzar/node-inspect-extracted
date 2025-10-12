@@ -1002,7 +1002,7 @@ const kEnhanceStackBeforeInspector = Symbol('kEnhanceStackBeforeInspector');
 
 /**
  * Determine the specific type of a value for type-mismatch errors.
- * @param {*} value
+ * @param {unknown} value
  * @returns {string}
  */
 function determineSpecificType(value) {

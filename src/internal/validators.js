@@ -18,7 +18,7 @@ const kValidateObjectAllowFunction = 1 << 2;
 
 /**
  * @callback validateObject
- * @param {*} value
+ * @param {unknown} value
  * @param {string} name
  * @param {number} [options]
  */
