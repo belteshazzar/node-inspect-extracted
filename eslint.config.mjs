@@ -441,4 +441,11 @@ export default [
   ...testConfig,
   ...toolsConfig,
   // #endregion
+  {
+    files: ['tools/lastExtract.js'],
+    rules: {
+      // JSON
+      '@stylistic/js/comma-dangle': 'off',
+    },
+  },
 ];

@@ -25,7 +25,7 @@
     "pretest:all": "npm run build",
     "test:all": "nve --arch x64 -p 14,16,18,20,22,24 node tools/runtests",
     "coverage": "c8 node tools/runtests",
-    "preci": "npm run build",
+    "preci": "npm run build && npm run lint",
     "ci": "c8 nve --no-progress --arch x64 -c -p 14,16,18,20,22,24 node tools/runtests"
   },
   "keywords": [
