@@ -30,13 +30,26 @@ const fs = require('fs');
 // Do not require 'os' until needed so that test-os-checked-function can
 // monkey patch it. If 'os' is required here, that test will fail.
 const path = require('path');
-const { inspect, getCallSites } = require('util');
+const { inspect } = require('util');
+let { getCallSites } = require('util');
 const { isMainThread } = require('worker_threads');
 
 const tmpdir = require('./tmpdir');
 const bits = ['arm64', 'loong64', 'mips', 'mipsel', 'ppc64', 'riscv64', 's390x', 'x64']
   .includes(process.arch) ? 64 : 32;
 const hasIntl = !!process.config.variables.v8_enable_i18n_support;
+
+if (!getCallSites) {
+  getCallSites = () => {
+    const old = Error.prepareStackTrace;
+    Error.prepareStackTrace = (_, s) => s;
+    const stack = /** @type {NodeJS.CallSite[]} */(
+      /** @type {unknown} */(new Error().stack)
+    );
+    Error.prepareStackTrace = old;
+    return stack;
+  };
+}
 
 const {
   atob,
@@ -56,9 +69,10 @@ const noop = () => {};
 const hasCrypto = Boolean(process.versions.openssl) &&
                   !process.env.NODE_SKIP_CRYPTO;
 
+const hasInspector = Boolean(process.features.inspector);
 const hasSQLite = Boolean(process.versions.sqlite);
 
-const hasQuic = hasCrypto && !!process.config.variables.node_quic;
+const hasQuic = hasCrypto && !!process.features.quic;
 
 /**
  * Parse test metadata from the specified file.
@@ -177,9 +191,10 @@ function isPi() {
   }
 }
 
-// When using high concurrency or in the CI we need much more time for each connection attempt
-// @hildjj
-// net.setDefaultAutoSelectFamilyAttemptTimeout(platformTimeout(net.getDefaultAutoSelectFamilyAttemptTimeout() * 10));
+// When using high concurrency or in the CI we need much more time for each connection attempt.
+// Default 500ms becomes 2500ms for tests.
+// @hildjj Don't worry about these and dealing with `net`.
+// net.setDefaultAutoSelectFamilyAttemptTimeout(platformTimeout(net.getDefaultAutoSelectFamilyAttemptTimeout() * 5));
 // const defaultAutoSelectFamilyAttemptTimeout = net.getDefaultAutoSelectFamilyAttemptTimeout();
 
 const buildType = process.config.target_defaults ?
@@ -370,6 +385,9 @@ if (hasCrypto) {
   knownGlobals.add(globalThis.CryptoKey);
   knownGlobals.add(globalThis.SubtleCrypto);
 }
+
+const { Worker } = require('node:worker_threads');
+knownGlobals.add(Worker);
 
 function allowGlobals(...allowlist) {
   for (const val of allowlist) {
@@ -715,7 +733,7 @@ function expectsError(validator, exact) {
 }
 
 function skipIfInspectorDisabled() {
-  if (!process.features.inspector) {
+  if (!hasInspector) {
     skip('V8 inspector is disabled');
   }
 }
@@ -917,6 +935,12 @@ function expectRequiredTLAError(err) {
   }
 }
 
+function sleepSync(ms) {
+  const sab = new SharedArrayBuffer(4);
+  const i32 = new Int32Array(sab);
+  Atomics.wait(i32, 0, 0, ms);
+}
+
 const common = {
   allowGlobals,
   buildType,
@@ -935,6 +959,7 @@ const common = {
   hasIntl,
   hasCrypto,
   hasQuic,
+  hasInspector,
   hasSQLite,
   invalidArgTypeHelper,
   isAlive,
@@ -967,6 +992,7 @@ const common = {
   skipIfInspectorDisabled,
   skipIfSQLiteMissing,
   spawnPromisified,
+  sleepSync,
 
   get enoughTestMem() {
     return require('os').totalmem() > 0x70000000; /* 1.75 Gb */

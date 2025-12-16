@@ -4,6 +4,8 @@ const primordials = require('../primordials');
 const {
   ArrayPrototypeJoin,
   Error,
+  ErrorIsError,
+  FunctionPrototypeSymbolHasInstance,
   StringPrototypeReplace,
   SymbolFor,
 } = primordials;
@@ -14,7 +16,11 @@ const colorRegExp = /\u001b\[\d\d?m/g;
 module.exports = {
   customInspectSymbol: SymbolFor('nodejs.util.inspect.custom'),
   isError(e) {
-    return e instanceof Error;
+    // An error could be an instance of Error while not being a native error
+    // or could be from a different realm and not be instance of Error but still
+    // be a native error.
+    // Error.isError added in node 24.
+    return ErrorIsError?.(e) || FunctionPrototypeSymbolHasInstance(Error, e);
   },
   join: ArrayPrototypeJoin,
   removeColors(str) {
