@@ -124,7 +124,7 @@ checkAll().then(async (fail) => {
   if (fail) {
     process.exit(1);
   } else if (update) {
-    lastExtract.files.sort((a, b) => a.name.localeCompare(b));
+    lastExtract.files.sort((a, b) => a.name.localeCompare(b.name));
     await fsp.writeFile(
       LAST_EXTRACT_FILE,
       `\
