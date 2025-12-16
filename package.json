@@ -26,7 +26,7 @@
     "test:all": "nve -p 14,16,18,20,22,24,25 node tools/runtests",
     "coverage": "c8 node tools/runtests",
     "preci": "npm run build && npm run lint",
-    "ci": "c8 nve --no-progress --arch x64 -c -p 14,16,18,20,22,24,25 node tools/runtests"
+    "ci": "c8 nve --no-progress -c -p 14,16,18,20,22,24,25 node tools/runtests"
   },
   "keywords": [
     "inspect",
