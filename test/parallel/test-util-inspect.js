@@ -3920,10 +3920,11 @@ if (semver.satisfies(process.version, '>=22')) {
 }
 
 // hildjj: AggregateError added in Node 16
-if (typeof globalThis["AggregateError"] === "function") {
+// eslint-disable-next-line dot-notation
+if (typeof globalThis['AggregateError'] === 'function') {
   const ag = new AggregateError([
-    new Error("foo"),
-    new Error("bar"),
+    new Error('foo'),
+    new Error('bar'),
   ]);
   assert.match(util.inspect(ag), /foo/);
 }

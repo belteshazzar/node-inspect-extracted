@@ -33,7 +33,7 @@ function expectColored([regexp, expected]) {
 }
 
 function createRegExp(string, flags) {
-  if (common.hasIntl && (!flags.includes('v') || hasRegExV)) {
+  if (common.hasIntl && (!flags?.includes('v') || hasRegExV)) {
     return new RegExp(string, flags);
   }
 }
@@ -122,9 +122,9 @@ const tests = [
 ];
 
 // hildjj: Added in node 23
-if (semver.satisfies(process.version, '>=23')) {  
+if (semver.satisfies(process.version, '>=23')) {
   tests.push(
-    [createRegExp("(?i: foo)"), '\x1B[32m/\x1B[39m\x1B[31m(\x1B[39m\x1B[33m?\x1B[39m\x1B[36mi\x1B[39m\x1B[36m:\x1B[39m\x1B[36m \x1B[39m\x1B[36mf\x1B[39m\x1B[36mo\x1B[39m\x1B[36mo\x1B[39m\x1B[31m)\x1B[39m\x1B[32m/\x1B[39m\x1B[31mv\x1B[39m']
+    [createRegExp('(?i: foo)'), '\x1B[32m/\x1B[39m\x1B[31m(\x1B[39m\x1B[33m?\x1B[39m\x1B[36mi\x1B[39m\x1B[36m:\x1B[39m\x1B[36m \x1B[39m\x1B[36mf\x1B[39m\x1B[36mo\x1B[39m\x1B[36mo\x1B[39m\x1B[31m)\x1B[39m\x1B[32m/\x1B[39m']
   );
 }
 
