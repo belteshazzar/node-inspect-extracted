@@ -3918,3 +3918,12 @@ if (semver.satisfies(process.version, '>=22')) {
   assert.match(inspect(DOMException.prototype), /^\[object DOMException\] \{/);
   delete Error[Symbol.hasInstance];
 }
+
+// hildjj: AggregateError added in Node 16
+if (typeof globalThis["AggregateError"] === "function") {
+  const ag = new AggregateError([
+    new Error("foo"),
+    new Error("bar"),
+  ]);
+  assert.match(util.inspect(ag), /foo/);
+}

@@ -3,6 +3,7 @@
 const common = require('../common');
 const assert = require('assert');
 const util = require('./util');
+const semver = require('semver');
 
 let hasRegExV = false;
 try {
@@ -119,6 +120,13 @@ const tests = [
   [/\009/, '\x1B[32m/\x1B[39m\x1B[33m\\009\x1B[39m\x1B[32m/\x1B[39m'],
   [/{,}/, '\x1B[32m/\x1B[39m\x1B[31m{\x1B[39m\x1B[33m,\x1B[39m\x1B[31m}\x1B[39m\x1B[32m/\x1B[39m'],
 ];
+
+// hildjj: Added in node 23
+if (semver.satisfies(process.version, '>=23')) {  
+  tests.push(
+    [createRegExp("(?i: foo)"), '\x1B[32m/\x1B[39m\x1B[31m(\x1B[39m\x1B[33m?\x1B[39m\x1B[36mi\x1B[39m\x1B[36m:\x1B[39m\x1B[36m \x1B[39m\x1B[36mf\x1B[39m\x1B[36mo\x1B[39m\x1B[36mo\x1B[39m\x1B[31m)\x1B[39m\x1B[32m/\x1B[39m\x1B[31mv\x1B[39m']
+  );
+}
 
 for (const test of tests) {
   expectColored(test);
