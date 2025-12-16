@@ -681,6 +681,7 @@ function highlightRegExp(regexpString) {
               depth++;
               i++;
             } else {
+              // hildjj: Unreachable, requires invalid re like /(?<foo/
               writeDepth('?<', -1, 0);
               write(name);
             }
