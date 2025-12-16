@@ -3,8 +3,15 @@
 // This file is generated from `node tools/check.js -u`
 // DO NOT MODIFY BY HAND
 module.exports = {
-  time: '2025-12-16T09:39:21.980Z',
+  time: '2025-12-16T09:53:55.941Z',
   files: [
+    {
+      name: 'test/parallel/test-util-inspect-regexp.js',
+      local: 'test/parallel/test-util-inspect-regexp.js',
+      sha256: 'bcd3f4983e2478eecba8c2dd4a4a6c53e796d5b92bc5bedd49a79a66aea8be6f',
+      mtime: '2025-09-05T14:29:21.000Z',
+      commit: 'fdef0725de03a719c78757bd9aae2b01e4bc7863'
+    },
     {
       name: 'test/eslint.config_partial.mjs',
       local: 'test/eslint.config_partial.mjs',
