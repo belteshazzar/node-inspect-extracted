@@ -2,12 +2,11 @@
   "name": "node-inspect-extracted",
   "version": "3.3.0",
   "description": "Node's util.inspect, extracted for use on the Web",
-  "main": "./dist/inspect.js",
-  "module": "./index.mjs",
-  "browser": "./dist/inspect.js",
+  "main": "./index.js",
+  "type": "module",
   "exports": {
     "types": "./types/util.d.ts",
-    "import": "./index.mjs",
+    "import": "./index.js",
     "require": "./dist/inspect.js"
   },
   "types": "./types/util.d.ts",

@@ -72,7 +72,7 @@ const builtinModules = [
   'zlib',
 ];
 
-module.exports.BuiltinModule = {
+export const BuiltinModule = {
   exists(s) {
     // Hack to get tests to pass.  Better than including the whole list of
     // 350+ internal modules.  In real usage, this function should always

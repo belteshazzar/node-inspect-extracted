@@ -774,4 +774,4 @@ primordials.StringPrototypeReplaceAll = primordials.StringPrototypeReplaceAll ||
 ObjectSetPrototypeOf(primordials, null);
 ObjectFreeze(primordials);
 
-module.exports = primordials;
+export default primordials;
