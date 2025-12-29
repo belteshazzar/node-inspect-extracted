@@ -2,22 +2,23 @@
   "name": "node-inspect-extracted",
   "version": "3.3.0",
   "description": "Node's util.inspect, extracted for use on the Web",
-  "main": "./index.js",
+  "main": "./src/inspect.js",
   "type": "module",
   "exports": {
     "types": "./types/util.d.ts",
-    "import": "./index.js"
+    "import": "./src/inspect.js"
   },
   "types": "./types/util.d.ts",
   "files": [
     "types/",
-    "src/",
-    "index.js"
+    "src/"
   ],
   "scripts": {
     "check": "node tools/check",
     "lint": "eslint .",
-    "build": "webpack",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "pretest": "npm run build",
     "test": "node tools/runtests",
     "pretest:all": "npm run build",
@@ -63,16 +64,11 @@
     "nve": "18.0.3",
     "semver": "7.7.3",
     "webpack": "^5.103.0",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^6.0.1",
+    "vite": "^6.0.7",
+    "vite-plugin-commonjs": "^0.10.4"
   },
-  "packageManager": "pnpm@10.26.0",
   "engines": {
     "node": ">=14"
-  },
-  "pnpm": {
-    "overrides": {
-      "glob": "10.5.0",
-      "js-yaml": "4.1.1"
-    }
   }
 }

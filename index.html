@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <script src="../dist/inspect.js"></script>
   <style>
 body {
   background-color: black;
@@ -16,15 +15,11 @@ pre {
 <body>
 
 </body>
-<script>
+<script type="module">
+  import util from './src/inspect.js';
   const pre = document.createElement('pre');
-  pre.innerHTML = util.inspect({
-    a: 1,
-    b: '<p>',
-    '&lt;': NaN,
-    [Symbol('<br>')]: false,
-    buf: new Uint8Array([1, 2, 3, 4])
-  }, {
+
+  pre.innerHTML = util.inspect(window,{
     compact: false,
     stylize: util.stylizeWithHTML
   });

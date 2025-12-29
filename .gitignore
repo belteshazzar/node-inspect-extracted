@@ -4,3 +4,4 @@ node_modules/
 dist/
 t.js
 .pnpm-store/
+.DS_Store

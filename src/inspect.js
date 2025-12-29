@@ -3066,7 +3066,7 @@ function escapeHTML(str) {
   );
 }
 
-module.exports = {
+export default {
   identicalSequenceRange,
   inspect,
   inspectDefaultOptions,
