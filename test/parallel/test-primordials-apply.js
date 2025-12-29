@@ -1,9 +1,9 @@
 // Flags: --expose-internals
 'use strict';
 
-require('../common');
+import assert from 'node:assert';
+import primordials from '../../src/primordials.js';
 
-const assert = require('assert');
 const {
   ArrayOfApply,
   ArrayPrototypePushApply,
@@ -13,7 +13,7 @@ const {
   SafeArrayPrototypePushApply,
   StringPrototypeConcatApply,
   TypedArrayOfApply,
-} = require('../../src/primordials');
+} = primordials;
 
 {
   const arr1 = [1, 2, 3];

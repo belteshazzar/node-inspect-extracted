@@ -2,10 +2,9 @@
 
 // Local tests.  Some of these should go back into node.js
 
-require('../common');
-const assert = require('assert');
-const util = require('../../src/inspect.js');
-const semver = require('semver');
+import assert from 'node:assert';
+import util from '../../src/inspect.js';
+import semver from 'semver';
 
 // Errors thrown in accessors are re-thrown
 {

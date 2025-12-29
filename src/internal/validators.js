@@ -1,15 +1,17 @@
 'use strict';
 
+import primordials from '../primordials.js';
 const {
   ArrayIsArray,
-} = require('../primordials');
+} = primordials;
 
+import errors from './errors.js';
 const {
   hideStackFrames,
   codes: {
     ERR_INVALID_ARG_TYPE,
   },
-} = require('./errors');
+} = errors;
 
 const kValidateObjectNone = 0;
 const kValidateObjectAllowNullable = 1 << 0;
@@ -61,7 +63,7 @@ function validateString(value, name) {
     throw new ERR_INVALID_ARG_TYPE(name, 'string', value);
 }
 
-module.exports = {
+export default {
   kValidateObjectNone,
   kValidateObjectAllowNullable,
   kValidateObjectAllowArray,

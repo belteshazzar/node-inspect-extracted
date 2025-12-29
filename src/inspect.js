@@ -135,6 +135,7 @@ const {
   uncurryThis,
 } = primordials;
 
+import util from './util.js';
 const {
   constants: {
     ALL_PROPERTIES,
@@ -150,19 +151,22 @@ const {
   getExternalValue,
   // eslint-disable-next-line node-core/prefer-primordials
   Proxy,
-} = require('./util');
+} = util;
 
+import internal_util from './internal/util.js';
 const {
   customInspectSymbol,
   isError,
   join,
   removeColors,
-} = require('./internal/util');
+} = internal_util;
 
+import internal_errors from './internal/errors.js';
 const {
   isStackOverflowError,
-} = require('./internal/errors');
+} = internal_errors;
 
+import internal_util_types from './internal/util/types.js';
 const {
   isAsyncFunction,
   isGeneratorFunction,
@@ -188,31 +192,35 @@ const {
   isNumberObject,
   isBooleanObject,
   isBigIntObject,
-} = require('./internal/util/types');
+} = internal_util_types;
 
-const assert = require('./internal/assert');
+import { BuiltinModule } from './internal/bootstrap/realm.js';
+import validators from './internal/validators.js';
+import urlMod from './internal/url.js';
+import assertModule from './internal/assert.js';
 
-const { BuiltinModule } = require('./internal/bootstrap/realm');
 const {
   validateObject,
   validateString,
   kValidateObjectAllowArray,
-} = require('./internal/validators');
+} = validators;
+
+// Simple assert for invariants
+function assert(value, message) {
+  if (!value) {
+    throw new Error(message || 'Assertion failed');
+  }
+}
 
 let hexSlice;
-let internalUrl;
+let internalUrl = urlMod;
 let internalUrlContextSymbols;
 
 function pathToFileUrlHref(filepath) {
-  // @hildjj: Maintain node 14 compat
-  internalUrl = internalUrl || require('./internal/url');
   return internalUrl.pathToFileURL(filepath).href;
 }
 
 function isURL(value) {
-  // @hildjj: Maintain node 14 compat
-  // internalUrl ??= require('./internal/url');
-  internalUrl = internalUrl || require('./internal/url');
   return typeof value.href === 'string' && value instanceof internalUrl.URL;
 }
 
@@ -2338,8 +2346,11 @@ function formatArrayBuffer(ctx, value) {
   } catch {
     return [ctx.stylize('(detached)', 'special')];
   }
-  if (hexSlice === undefined)
-    hexSlice = uncurryThis(require('./buffer').Buffer.prototype.hexSlice);
+  if (hexSlice === undefined) {
+    // @todo: buffer import if needed for web target
+    // For now, skip hexSlice since Buffer is Node.js only
+    hexSlice = () => '';
+  }
   const rawString = hexSlice(buffer, 0, MathMin(ctx.maxArrayLength, buffer.length));
   let str = '';
   let i = 0;

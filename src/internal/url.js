@@ -1,18 +1,17 @@
 'use strict';
 
-// The main use case is browsers, and I rarely test on Windows, so all of the
-// Windows-specific stuff is removed.
-
+import primordials from '../primordials.js';
 const {
   StringPrototypeCharCodeAt,
   StringPrototypeIncludes,
   StringPrototypeReplace,
-} = require('../primordials');
-const URL = require('../url');
+} = primordials;
+import URL from '../url.js';
+import constants from './constants.js';
 const {
   CHAR_FORWARD_SLASH,
-} = require('./constants');
-const path = require('../path');
+} = constants;
+import pathMod from '../path.js';
 
 const percentRegEx = /%/g;
 const backslashRegEx = /\\/g;
@@ -38,19 +37,19 @@ function encodePathChars(filepath) {
 function pathToFileURL(filepath) {
   const outURL = new URL('file://');
 
-  let resolved = path.resolve(filepath);
+  let resolved = pathMod.resolve(filepath);
   // path.resolve strips trailing slashes so we must add them back
   const filePathLast = StringPrototypeCharCodeAt(filepath,
                                                  filepath.length - 1);
   if ((filePathLast === CHAR_FORWARD_SLASH) &&
-      resolved[resolved.length - 1] !== path.sep)
+      resolved[resolved.length - 1] !== pathMod.sep)
     resolved += '/';
   outURL.pathname = encodePathChars(resolved);
 
   return outURL;
 }
 
-module.exports = {
+export default {
   pathToFileURL,
   URL,
 };

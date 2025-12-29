@@ -21,19 +21,23 @@
 
 'use strict';
 
+import primordials from './primordials.js';
 const {
   StringPrototypeCharCodeAt,
   StringPrototypeLastIndexOf,
   StringPrototypeSlice,
-} = require('./primordials');
+} = primordials;
 
+import constants from './internal/constants.js';
 const {
   CHAR_DOT,
   CHAR_FORWARD_SLASH,
-} = require('./internal/constants');
+} = constants;
+
+import validators from './internal/validators.js';
 const {
   validateString,
-} = require('./internal/validators');
+} = validators;
 
 function posixCwd() {
   return '/'; // Fake for the web case
@@ -156,8 +160,9 @@ function resolve(...args) {
   return resolvedPath.length > 0 ? resolvedPath : '.';
 }
 
-module.exports = {
+export default {
   isPosixPathSeparator,
   normalizeString,
   resolve,
+  sep: '/',
 };

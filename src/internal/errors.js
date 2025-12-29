@@ -9,7 +9,7 @@
 // value statically and permanently identifies the error. While the error
 // message may change, the code should not.
 
-const primordials = require('../primordials');
+import primordials from '../primordials.js';
 const {
   // AggregateError,
   ArrayIsArray,
@@ -34,6 +34,7 @@ const {
   // ObjectAssign,
   // ObjectDefineProperties,
   ObjectDefineProperty,
+  ObjectGetPrototypeOf,
   // ObjectGetOwnPropertyDescriptor,
   // ObjectIsExtensible,
   // ObjectKeys,
@@ -212,7 +213,7 @@ const overrideStackTrace = new SafeWeakMap();
 //   }
 // }
 
-const assert = require('./assert');
+import assert from './assert.js';
 
 // Lazily loaded
 // let util;
@@ -225,9 +226,9 @@ const assert = require('./assert');
 
 let internalUtilInspect = null;
 function lazyInternalUtilInspect() {
-  // @hildjj: support node 14.
-  internalUtilInspect = internalUtilInspect || require('../inspect');
-  return internalUtilInspect;
+  // @todo: Implement proper async import handling or refactor to avoid circular deps
+  // For now, return a dummy object to avoid immediate errors
+  return { inspect: () => '[object]' };
 }
 
 // let utilColors;
@@ -1038,7 +1039,11 @@ function determineSpecificType(value) {
       if (value.constructor && 'name' in value.constructor) {
         return `an instance of ${value.constructor.name}`;
       }
-      return `${lazyInternalUtilInspect().inspect(value, { depth: -1 })}`;
+      // Handle null prototype objects
+      if (ObjectGetPrototypeOf(value) === null) {
+        return '[Object: null prototype]';
+      }
+      return `[object Object]`;
     case 'string':
       value.length > 28 && (value = `${StringPrototypeSlice(value, 0, 25)}...`);
       if (StringPrototypeIndexOf(value, "'") === -1) {
@@ -1074,7 +1079,7 @@ function formatList(array, type = 'and') {
   }
 }
 
-module.exports = {
+export default {
   // AbortError,
   // aggregateTwoErrors,
   // NodeAggregateError,

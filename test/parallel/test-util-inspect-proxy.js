@@ -1,13 +1,13 @@
 'use strict';
 
-require('../common');
+import assert from 'node:assert';
+import util from './util';
+import proxyMod from '../../src/proxy.js';
+
 const {
   Proxy,
-  getProxyDetails
-} = require('../../src/proxy');
-require('../common');
-const assert = require('assert');
-const util = require('./util');
+  getProxyDetails,
+} = proxyMod;
 // NOT NEEDED: const { internalBinding } = require('internal/test/binding');
 const processUtil = { getProxyDetails };
 const opts = { showProxy: true };

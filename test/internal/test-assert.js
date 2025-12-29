@@ -1,8 +1,7 @@
 'use strict';
 
-require('../common');
-const a = require('../../src/internal/assert');
-const assert = require('assert');
+import a from '../../src/internal/assert.js';
+import assert from 'node:assert';
 
 const message = 'This is caused by either a bug in Node.js ' +
   'or incorrect usage of Node.js internals.\n' +

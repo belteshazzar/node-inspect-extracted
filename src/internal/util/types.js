@@ -1,6 +1,6 @@
 'use strict';
 
-const primordials = require('../../primordials');
+import primordials from '../../primordials.js';
 const {
   ArrayIsArray,
   BigInt,
@@ -21,7 +21,8 @@ const {
   SymbolToStringTag,
   globalThis,
 } = primordials;
-const { getConstructorName } = require('../../util');
+import util from '../../util.js';
+const { getConstructorName } = util;
 
 // From https://mathiasbynens.be/notes/globalthis
 /* c8 ignore start */ // only needed for node 10
@@ -85,7 +86,7 @@ const isBooleanObject = checkBox(Boolean);
 const isBigIntObject = checkBox(BigInt);
 const isSymbolObject = checkBox(Symbol);
 
-module.exports = {
+export default {
   isAsyncFunction(val) {
     return (typeof val === 'function') &&
       FunctionPrototype.toString.call(val).startsWith('async');

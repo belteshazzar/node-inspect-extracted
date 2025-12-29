@@ -1,6 +1,6 @@
 'use strict';
 
-const primordials = require('./primordials');
+import primordials from './primordials.js';
 const {
   Proxy,
   ProxyRevocable,
@@ -38,7 +38,7 @@ class Prxy {
   }
 }
 
-module.exports = {
+export default {
   getProxyDetails: Prxy.getProxyDetails.bind(Prxy),
   Proxy: Prxy,
 };

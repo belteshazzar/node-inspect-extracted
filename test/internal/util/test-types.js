@@ -1,13 +1,13 @@
 'use strict';
 
-require('../../common');
+import types from '../../../src/internal/util/types.js';
 const {
   isMap,
   isNativeError,
   isSet,
-} = require('../../../src/internal/util/types');
-const assert = require('assert');
-const vm = require('vm');
+} = types;
+import assert from 'node:assert';
+import vm from 'node:vm';
 
 assert(isNativeError(new Error()));
 

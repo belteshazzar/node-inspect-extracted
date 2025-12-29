@@ -1,26 +1,19 @@
 'use strict';
 
-require('./common');
-const {
-  inspect,
-  format,
-  formatWithOptions,
-  stylizeWithHTML,
-  Proxy,
-} = require('../dist/inspect');
-const assert = require('assert');
+import util from '../src/inspect.js';
+import assert from 'node:assert';
 
-assert.strictEqual(typeof inspect, 'function');
-assert.strictEqual(inspect(null), 'null');
-assert.strictEqual(inspect({ a: 1 }, { compact: false }), '{\n  a: 1\n}');
+assert.strictEqual(typeof util.inspect, 'function');
+assert.strictEqual(util.inspect(null), 'null');
+assert.strictEqual(util.inspect({ a: 1 }, { compact: false }), '{\n  a: 1\n}');
 
-assert.strictEqual(inspect({ a: 1 }, {
+assert.strictEqual(util.inspect({ a: 1 }, {
   compact: false,
-  stylize: stylizeWithHTML,
+  stylize: util.stylizeWithHTML,
 }), '{\n  a: <span style="color:yellow;">1</span>\n}');
 
-const p = new Proxy({ a: false }, {});
-assert.strictEqual(format('%%%o%%', p), '%Proxy [ { a: false }, {} ]%');
-assert.strictEqual(formatWithOptions({
+const p = new util.Proxy({ a: false }, {});
+assert.strictEqual(util.format('%%%o%%', p), '%Proxy [ { a: false }, {} ]%');
+assert.strictEqual(util.formatWithOptions({
   compact: false,
 }, '%O', p), '{\n  a: false\n}');

@@ -1,14 +1,15 @@
 'use strict';
 
-require('../common');
+import errors from '../../src/internal/errors.js';
+import assert from 'node:assert';
+
 const {
   codes: {
     ERR_INVALID_ARG_TYPE,
   },
   determineSpecificType,
   formatList,
-} = require('../../src/internal/errors');
-const assert = require('assert');
+} = errors;
 
 assert.throws(() => {
   throw new ERR_INVALID_ARG_TYPE('first argument', 'Object', 4);

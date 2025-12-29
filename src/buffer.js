@@ -1,9 +1,8 @@
 'use strict';
 
-const primordials = require('./primordials');
-const {
+import {
   ArrayPrototypeMap,
-} = primordials;
+} from './primordials.js';
 
 class Buffer {
   hexSlice(start = 0, end) {
@@ -14,4 +13,4 @@ class Buffer {
   }
 }
 
-exports.Buffer = Buffer;
+export { Buffer };

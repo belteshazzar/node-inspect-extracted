@@ -1,8 +1,10 @@
 'use strict';
 
+import errors from './errors.js';
+
 let error;
 function lazyError() {
-  return error = (error != null) ? error : require('./errors').codes.ERR_INTERNAL_ASSERTION;
+  return error = (error != null) ? error : errors.codes.ERR_INTERNAL_ASSERTION;
 }
 
 function assert(value, message) {
@@ -19,4 +21,4 @@ function fail(message) {
 
 assert.fail = fail;
 
-module.exports = assert;
+export default assert;

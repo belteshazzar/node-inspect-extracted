@@ -1,10 +1,8 @@
 /* eslint-disable node-core/require-common-first */
-import './common/index.js';
-import {
-  default as util,
-  inspect,
-} from '../index.mjs';
-import assert from 'assert';
+import util from '../src/inspect.js';
+import assert from 'node:assert';
+
+const { inspect } = util;
 
 assert.strictEqual(typeof util.inspect, 'function');
 assert.strictEqual(util.inspect, inspect);

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+export default {
   // Non-alphabetic chars.
   CHAR_DOT: 46, /* . */
   CHAR_FORWARD_SLASH: 47, /* / */

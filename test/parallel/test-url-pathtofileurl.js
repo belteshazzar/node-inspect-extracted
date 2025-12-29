@@ -1,7 +1,8 @@
 'use strict';
-const { isWindows } = require('../common');
-const assert = require('assert');
-const url = require('../../src/internal/url');
+import assert from 'node:assert';
+import url from '../../src/internal/url.js';
+
+const isWindows = process.platform === 'win32';
 
 {
   const fileURL = url.pathToFileURL('test/').href;

@@ -2,15 +2,16 @@
 'use strict';
 
 // Cut down set of tests to just the ones we use.
-require('../common');
-const assert = require('assert');
+import assert from 'node:assert';
+import validators from '../../src/internal/validators.js';
+
 const {
   validateObject,
   kValidateObjectAllowNullable,
   kValidateObjectAllowArray,
   kValidateObjectAllowFunction,
   validateString,
-} = require('../../src/internal/validators');
+} = validators;
 const invalidArgTypeError = {
   code: 'ERR_INVALID_ARG_TYPE',
   name: 'TypeError',

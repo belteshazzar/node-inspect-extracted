@@ -1,6 +1,6 @@
 'use strict';
 
-const primordials = require('../primordials');
+import primordials from '../primordials.js';
 const {
   ArrayPrototypeJoin,
   Error,
@@ -13,7 +13,7 @@ const {
 // eslint-disable-next-line no-control-regex
 const colorRegExp = /\u001b\[\d\d?m/g;
 
-module.exports = {
+export default {
   customInspectSymbol: SymbolFor('nodejs.util.inspect.custom'),
   isError(e) {
     // An error could be an instance of Error while not being a native error

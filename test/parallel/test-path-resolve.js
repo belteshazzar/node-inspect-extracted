@@ -1,7 +1,6 @@
 'use strict';
-const common = require('../common');
-const assert = require('assert');
-const path = require('../../src/path');
+import assert from 'node:assert';
+import path from '../../src/path.js';
 
 const failures = [];
 // Fake one for the web case
@@ -32,7 +31,7 @@ resolveTests.forEach(([resolve, tests]) => {
   tests.forEach(([test, expected]) => {
     const actual = resolve.apply(null, test);
     let actualAlt;
-    const os = resolve === common.isWindows ? 'win32' : 'posix';
+    const os = 'posix';
 
     const message =
       `path.${os}.resolve(${test.map(JSON.stringify).join(',')})\n  expect=${

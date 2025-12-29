@@ -1,6 +1,6 @@
 'use strict';
 
-const primordials = require('./primordials');
+import primordials from './primordials.js';
 const {
   BigInt,
   Error,
@@ -12,7 +12,7 @@ const {
   ObjectPrototypeToString,
   Symbol,
 } = primordials;
-const prxy = require('./proxy');
+import prxy from './proxy.js';
 const ALL_PROPERTIES = 0;
 const ONLY_ENUMERABLE = 2;
 const kPending = Symbol('kPending');
@@ -41,7 +41,7 @@ function getOwnNonIndexProperties(a, filter = ONLY_ENUMERABLE) {
   return ret;
 }
 
-module.exports = {
+export default {
   constants: {
     kPending,
     kRejected,

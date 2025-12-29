@@ -1,6 +1,8 @@
 'use strict';
 
-require('./common');
+import util from '../src/util.js';
+import assert from 'node:assert';
+
 const {
   getOwnNonIndexProperties,
   getConstructorName,
@@ -8,8 +10,7 @@ const {
     ALL_PROPERTIES,
     ONLY_ENUMERABLE,
   },
-} = require('../src/util');
-const assert = require('assert');
+} = util;
 
 assert.strictEqual(typeof getOwnNonIndexProperties, 'function');
 

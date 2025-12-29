@@ -1,13 +1,14 @@
 'use strict';
 
-require('./common');
+import primordials from '../src/primordials.js';
+import assert from 'node:assert';
+
 const {
   makeSafe,
   internalBinding,
   SafeMap,
   _stringPrototypeReplaceAll,
-} = require('../src/primordials');
-const assert = require('assert');
+} = primordials;
 
 const sm = new SafeMap([[1, 2], [3, 4]]);
 assert(sm);

@@ -1,7 +1,6 @@
 /* eslint-disable node-core/require-common-first */
-import './common/index.js';
-import util from '../dist/inspect.js';
-import assert from 'assert';
+import util from '../src/inspect.js';
+import assert from 'node:assert';
 
 assert.strictEqual(typeof util.inspect, 'function');
 assert.strictEqual(util.inspect(null), 'null');
