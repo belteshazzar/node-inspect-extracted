@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+body {
+  background-color: black;
+}
+pre {
+  color: white;
+}
+  </style>
+</head>
+<body>
+
+</body>
+<script type="module">
+  import util from './dist/util.es.js';
+
+  const pre = document.createElement('pre');
+
+  pre.innerHTML = util.inspect(window,{
+    compact: false,
+    stylize: util.stylizeWithHTML
+  });
+  document.body.appendChild(pre);
+</script>
+</html>
