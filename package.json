@@ -6,14 +6,13 @@
   "type": "module",
   "exports": {
     "types": "./types/util.d.ts",
-    "import": "./index.js",
-    "require": "./dist/inspect.js"
+    "import": "./index.js"
   },
   "types": "./types/util.d.ts",
   "files": [
-    "dist/",
     "types/",
-    "index.mjs"
+    "src/",
+    "index.js"
   ],
   "scripts": {
     "check": "node tools/check",
