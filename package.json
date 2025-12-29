@@ -11,7 +11,7 @@
   "types": "./types/util.d.ts",
   "files": [
     "types/",
-    "src/",
+    "dist/",
     "index.js"
   ],
   "scripts": {
