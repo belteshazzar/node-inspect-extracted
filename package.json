@@ -2,16 +2,16 @@
   "name": "node-inspect-extracted",
   "version": "3.3.0",
   "description": "Node's util.inspect, extracted for use on the Web",
-  "main": "./src/inspect.js",
+  "main": "./dist/util.es.js",
   "type": "module",
   "exports": {
     "types": "./types/util.d.ts",
-    "import": "./src/inspect.js"
+    "import": "./dist/util.es.js"
   },
   "types": "./types/util.d.ts",
   "files": [
     "types/",
-    "src/"
+    "dist/"
   ],
   "scripts": {
     "check": "node tools/check",
